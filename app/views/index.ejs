@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Poker App</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>Poker App</h1>
+    <p>Welcome to poker app</p>
+    <div>
+      <form action="/cards" method="post">
+        <label for="cards">カードを入力してください: </label>
+        <input type="text" name="card_field" placeholder='A1 A2 A3 A4 A5' />
+        <input type="submit" value="OK"/>
+      </form>
+      <% if (typeof params == 'undefined') { %>
+        <p>カードを入力してください</p>
+      <% } else { %>
+        <p><%= params %></p>
+      <% } %>
+  </div>
+  </body>
+</html>
