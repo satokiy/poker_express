@@ -10,7 +10,7 @@
     <div>
       <form action="/cards" method="post">
         <label for="cards">カードを入力してください: </label>
-        <input type="text" name="card_field" placeholder='A1 A2 A3 A4 A5' />
+        <input type="text" name="card_field" placeholder='A1 A2 A3 A4 A5' value=<%= placeholder %>>
         <input type="submit" value="OK"/>
       </form>
       <% if (typeof params == 'undefined') { %>
@@ -18,6 +18,16 @@
       <% } else { %>
         <p><%= params %></p>
       <% } %>
-  </div>
+    </div>
+    <div>
+      <form action="/get_card" method="get">
+      
+      </form>
+      <% if (typeof hands == 'undefined') { %>
+        <p>カードを入力してください</p>
+      <% } else { %>
+        <p><%= hands %></p>
+      <% } %>
+    </div>
   </body>
 </html>

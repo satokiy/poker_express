@@ -16,8 +16,10 @@ app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
 app.use(express.json());
+// formからの値を受け取るための定型文
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+// 静的ファイルを読み込み
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true}));
 // 共通のRouteは別ファイルで管理。RESTfulな書き方と、それに対応するディレクトリ構成ができる。
