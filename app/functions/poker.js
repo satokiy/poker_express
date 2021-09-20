@@ -56,7 +56,7 @@ const compete = (params) => {
     const hand = service.judgePoker(param["cards"]);
     results.push({...hand, ...param})
   });
-  rankService.randHand(results);
+  
   return rankService.randHand(results);
 };
 
