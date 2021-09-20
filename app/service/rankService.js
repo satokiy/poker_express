@@ -1,4 +1,4 @@
-const rankHand = (hands) => {
+function rankHand(hands) {
   let rank = 1;
   hands.sort( (a,b) => {
     if (a.score > b.score) return -1;
