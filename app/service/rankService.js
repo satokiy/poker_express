@@ -6,9 +6,9 @@ function rankHand(hands) {
     return 0;
   });
   hands.forEach((hand) => {
-    result.rank = rank;
+    hand.rank = rank;
     rank++;
   });
   return hands;
-};
+}
 exports.rankHand = rankHand;

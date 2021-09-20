@@ -57,6 +57,6 @@ const compete = (params) => {
     results.push({...hand, ...param})
   });
   
-  return rankService.randHand(results);
+  return rankService.rankHand(results);
 };
 
