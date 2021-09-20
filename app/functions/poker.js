@@ -1,5 +1,6 @@
 const {Deck} = require('../models/deck');
 const service = require('../service/judgePokerService');
+const rankService = require('../service/rankService');
 
 exports.handler = async (event) => {
   const path = event.context["resource-path"];
@@ -14,8 +15,10 @@ exports.handler = async (event) => {
       case '/api/v1/poker/draw_and_play':
         body = await draw_and_play();
         break;
-      // case 'compete':
-      //   break;
+      case '/api/v1/poker/compete':
+        const params = event["body-json"];
+        body = await compete(params);
+        break;
       default:
         throw new Error(`Unsupported path "${path}"`);
       }
@@ -42,10 +45,18 @@ const draw = () => {
 
 const draw_and_play = () => {
   const cards = draw();
-  console.log(cards);
   const result = service.judgePoker(cards)
   
   return {cards, ...result};
 };
 
+const compete = (params) => {
+  const results = [];
+  params.forEach((param) => {
+    const hand = service.judgePoker(param["cards"]);
+    results.push({...hand, ...param})
+  });
+  rankService.randHand(results);
+  return rankService.randHand(results);
+};
 
