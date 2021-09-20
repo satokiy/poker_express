@@ -37,7 +37,8 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
-      - run: zip -r package.zip ./*
+      - run: zip -r package.zip ./app/*
+      - run: zip -r node_modules.zip ./node_modules/*
       - run: npm install aws-cli
       - run: aws lambda publish-layer-version --layer-name poker-express-nodejs-layer --zip-file fileb://node_modules.zip --compatible-runtimes nodejs12.x
         env:
