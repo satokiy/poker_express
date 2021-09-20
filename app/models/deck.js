@@ -17,4 +17,4 @@ class Deck {
     return this._deck.splice(0, num);
   }
 };
-module.exports.Deck = Deck;
+exports.Deck = Deck;
