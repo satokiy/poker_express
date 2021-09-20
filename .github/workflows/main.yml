@@ -37,13 +37,15 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
-      - run: zip -r package.zip ./*
+      - run: zip -r package.zip ./app/*
       - run: npm install aws-cli
-      - run: aws lambda publish-layer-version --layer-name poker-express-nodejs-layer --zip-file fileb://node_modules.zip --compatible-runtimes nodejs12.x
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: ap-northeast-1
+# node_moduleを追加した際にLambdaレイヤーのバージョンを上げる
+#       - run: zip -r node_modules.zip ./node_modules/*
+#       - run: aws lambda publish-layer-version --layer-name poker-express-nodejs-layer --zip-file fileb://node_modules.zip --compatible-runtimes nodejs12.x
+#         env:
+#           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#           AWS_DEFAULT_REGION: ap-northeast-1
       - run: aws lambda update-function-code --function-name poker-express --zip-file fileb://package.zip --publish
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
