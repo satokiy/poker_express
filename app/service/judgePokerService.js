@@ -1,8 +1,8 @@
 
 const pokerRoles = require('../cnt/pokerRoles')
 
-function judgePoker(str) {
-  let cards = str.split(',');
+function judgePoker(cards) {
+  // let cards = str.split(',');
 
   if (pokerRoles.isFlush(cards) && pokerRoles.isStraight(cards)) {
     console.log('straight flush');

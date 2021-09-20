@@ -22,7 +22,8 @@ router.post('/judge', (req, res) => {
   console.log('--- post /cards called ---');
   console.log(req.body);
   // console.log(judgePokerService.judgePoker(req.body['card_field']));
-  let result = service.judgePoker(req.body['card_field'])
+  const cards = req.body['card_field'].split(',');
+  let result = service.judgePoker(cards)
   console.log(result);
   res.render('index', { placeholder: req.body['card_field'], hands: result});
 });
