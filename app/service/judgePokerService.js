@@ -1,70 +1,47 @@
 
-// ポーカーの役を定義
-// firstメソッドなどはないのでArray[i]で取得
-function roles() {
-  const roles = [
-    {role: 'ストレートフラッシュ', score: 8000, key: 1105},
-    {role: 'ストレート', score: 4000, key: 1005},
-    {role: 'フラッシュ', score: 5000, key: 105},
-    {role: '4カード', score: 7000, key: 12},
-    {role: 'フルハウス', score: 6000, key: 2},
-    {role: '3カード', score: 3000, key: 13},
-    {role: '2ペア', score: 2000, key: 3},
-    {role: 'ハイカード', score: 0, key: 5},
-    {role: '1ペア', score: 1000, key: 14},
-]
-return roles;
-};
-
-
-// 配列から重複を削除
-function uniq(array) {
-  const uniquedArray = [];
-  for (const elem of array) {
-    if (!uniquedArray.includes(elem))
-      uniquedArray.push(elem);
-  }
-  return uniquedArray;
-};
-
+const pokerRoles = require('../cnt/pokerRoles')
 
 function judgePoker(str) {
-  let cards = str.toUpperCase().split(' ');
+  let cards = str.split(',');
 
-  // Array: suits
-  let suits = cards.map( (value) => {
-    return value.slice(0,1);
-  });
-
-  // Array: numbers
-  let numbers = cards.map( (value) => {
-    return value.slice(1,2);
-  });
-
+  if (pokerRoles.isFlush(cards) && pokerRoles.isStraight(cards)) {
+    console.log('straight flush');
+    return pokerRoles.roles.find((v) => v.name == 'straight flush');
   
-  const uniq_num = uniq(numbers).length;
-  const uniq_suit = uniq(suits).length;
-  const max_num = Math.max.apply(null, numbers);
-  const min_num = Math.min.apply(null, numbers);
+  } else if (pokerRoles.isFourOfAKind(cards)) {
+    console.log('four of a kind');
+    return pokerRoles.roles.find((v) => v.name == 'four of a kind');
 
+  } else if (pokerRoles.isFullHouse(cards)) {
+    console.log('full house');
+    return pokerRoles.roles.find((v) => v.name == 'full house');
+
+  } else if (pokerRoles.isFlush(cards)) {
+    console.log('flush');
+    return pokerRoles.roles.find((v) => v.name == 'flush');
+
+  } else if (pokerRoles.isStraight(cards)) {
+    console.log('straight');
+    return pokerRoles.roles.find((v) => v.name == 'straight');
+
+  } else if (pokerRoles.isThreeCard(cards)) {
+    console.log('three card');
+    return pokerRoles.roles.find((v) => v.name == 'three card');
+
+  } else if (pokerRoles.isTwoPair(cards)) {
+    console.log('two pair');
+    return pokerRoles.roles.find((v) => v.name == 'two pair');
+
+  } else if (pokerRoles.isOnePair(cards)) {
+    console.log('one pair');
+    return pokerRoles.roles.find((v) => v.name == 'one pair');
+
+  } else {
+    console.log('high card');
+    return pokerRoles.roles.find((v) => v.name == 'high card');
+  }
   
-  let key = uniq_num;
-  // straight
-  if (uniq_num == 5 && max_num - min_num == 4) {
-    key += 1000;
-  };
-  // flash
-  if (uniq_suit == 1) {
-    key += 100;
-  };
-
-  
-
-  // result
-  let result = roles().find( (x) => x.key == key);
-  return result;
 };
 
-// module.exports = judgePoker;
 exports.judgePoker = judgePoker;
-exports.roles = roles();
+
