@@ -1,0 +1,50 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: 'poker_express
+
+  Sample SAM Template for poker_express
+
+  '
+Globals:
+  Function:
+    Timeout: 3
+Resources:
+  PokerExpressFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: s3://poker-express-2021/e58d2219b2de5c54521193fa277af7f0
+      Handler: poker.handler
+      Runtime: nodejs12.x
+      Events:
+        Draw:
+          Type: Api
+          Properties:
+            Path: /api/v1/poker/draw
+            Method: get
+        DrawAndPlay:
+          Type: Api
+          Properties:
+            Path: /api/v1/poker/draw_and_play
+            Method: post
+        Compete:
+          Type: Api
+          Properties:
+            Path: /api/v1/poker/compete
+            Method: post
+Outputs:
+  PokerExpressApi:
+    Description: API Gateway endpoint URL for Prod stage for Hello World function
+    Value:
+      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/
+  PokerExpressFunction:
+    Description: PokerExpressFunction Lambda Function ARN
+    Value:
+      Fn::GetAtt:
+      - PokerExpressFunction
+      - Arn
+  PokerExpressFunctionIamRole:
+    Description: Implicit IAM Role created for PokerExpressFunction function
+    Value:
+      Fn::GetAtt:
+      - PokerExpressFunctionRole
+      - Arn
