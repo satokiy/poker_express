@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const service = require('../service/judgePokerService')
-const {Deck} = require('../models/deck.js')
+const service = require('../service/judgePokerService');
+const {Deck} = require('../models/deck.js');
+const Sequelize = require('sequelize');
+
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
@@ -24,6 +26,7 @@ router.post('/judge', (req, res) => {
   // console.log(judgePokerService.judgePoker(req.body['card_field']));
   const cards = req.body['card_field'].split(',');
   let result = service.judgePoker(cards)
+
   console.log(result);
   res.render('index', { placeholder: req.body['card_field'], hands: result});
 });
