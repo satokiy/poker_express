@@ -16,5 +16,5 @@ class Deck {
   deal(num) {
     return this._deck.splice(0, num);
   }
-};
+}
 exports.Deck = Deck;

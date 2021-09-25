@@ -24,7 +24,7 @@ exports.handler = async (event) => {
       }
   } catch (err) {
       body = err.message;
-  };
+  }
     
   return {
     path,
